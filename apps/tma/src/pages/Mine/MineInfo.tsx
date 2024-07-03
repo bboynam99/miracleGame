@@ -123,7 +123,7 @@ export const MineInfo = ({ mine }: { mine: MineType }) => {
       </div>
 
       <div className="grid grid-cols-5 col-span-3">
-        <div className="col-span-5 h-20" />
+        <div className="col-span-5 h-10" />
         {/* <SecondLine />
         <Line />
         <Line />

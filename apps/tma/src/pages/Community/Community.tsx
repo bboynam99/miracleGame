@@ -3,13 +3,15 @@ import { getFunctions } from "firebase/functions";
 import { app } from "@/store/firebase";
 import { Button } from "@headlessui/react";
 import useHttpsCallable from "@/store/useHttpsCallable";
-import { useMiniApp } from "@tma.js/sdk-react";
+import { useMiniApp, useCloudStorage } from "@tma.js/sdk-react";
+import {} from "@tma.js/sdk-react";
 
 const Community = () => {
   const timeoutIdRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [countClick, setCountClick] = useState(0);
   const [executeCallable] = useHttpsCallable(getFunctions(app), "save");
   const miniApp = useMiniApp();
+  const cloudStorage = useCloudStorage();
 
   const onClick = () => {
     if (countClick >= 5) {
@@ -33,6 +35,11 @@ const Community = () => {
     }
   };
 
+  const onRestoreClick = () => {
+    console.log("here");
+    cloudStorage.delete("tutor");
+  };
+
   useEffect(() => {
     return () => {
       if (timeoutIdRef.current) {
@@ -42,9 +49,12 @@ const Community = () => {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col items-center gap-3 py-4">
       <Button onClick={onClick}>
         <h1 className="text-3xl text-white p-3 bg-primaryM">Community</h1>
+      </Button>
+      <Button onClick={onRestoreClick}>
+        <h1 className="text-3xl text-white p-3 bg-primaryM">Restore tutor</h1>
       </Button>
     </div>
   );

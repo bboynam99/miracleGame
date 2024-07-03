@@ -11,19 +11,19 @@
     "sellIsMiriclaCoint": false,
     "unlockPrice": 0,
     "store": {
-      "updateCapacityPrice": [10, 750, 1500, 3000, 6000, 12000, 24000, 48000, 96000],
-      "updateCapacityCount": [200, 500, 1500, 3000, 6000, 12000, 24000, 48000, 96000],
+      "updateCapacityPrice": [10, 35, 100, 300, 600, 1200, 2400, 4800, 9600],
+      "updateCapacityCount": [30, 250, 1000, 3000, 6000, 12000, 24000, 48000, 96000],
       "priceIsMiracleCoin": false
     },
     "passive": {
       "toolPriceIsMiracleCoin": false,
       "workerPriceIsMiracleCoin": false,
-      "speedProductivity": [1, 2, 4, 12],
-      "speedUpgradePrice": [1, 20, 100, 200],
+      "speedProductivity": [6, 15],
+      "speedUpgradePrice": [40, 100],
       "workerPrice": 30,
       "workerProductivity": 1,
-      "maxWorkers": 9999,
-      "produceTime": 60
+      "maxWorkers": 9999999,
+      "produceTime": 30
     }
   },
   {
@@ -51,11 +51,11 @@
     "passive": {
       "toolPriceIsMiracleCoin": false,
       "workerPriceIsMiracleCoin": false,
-      "speedProductivity": [1, 2, 4, 12],
-      "speedUpgradePrice": [1, 80, 160, 320],
+      "speedProductivity": [2, 4, 12],
+      "speedUpgradePrice": [80, 160, 320],
       "workerPrice": 70,
       "workerProductivity": 1,
-      "maxWorkers": 9999,
+      "maxWorkers": 999999,
       "produceTime": 60
     }
   },
@@ -68,17 +68,17 @@
         {
           "id": "glass",
           "image": "assets/glass.png",
-          "count": 4
+          "count": 8
         },
         {
           "id": "plastic",
           "image": "assets/plastic.png",
-          "count": 10
+          "count": 20
         }
       ],
       "craftImage": ""
     },
-    "sellPrice": 190,
+    "sellPrice": 400,
     "sellIsMiriclaCoint": false,
     "unlockPrice": 500,
     "store": {
@@ -89,8 +89,8 @@
     "passive": {
       "toolPriceIsMiracleCoin": false,
       "workerPriceIsMiracleCoin": false,
-      "speedProductivity": [1, 2, 4, 12],
-      "speedUpgradePrice": [1, 6000, 18000, 50000],
+      "speedProductivity": [2, 4, 12],
+      "speedUpgradePrice": [6000, 18000, 50000],
       "workerPrice": 250,
       "workerProductivity": 1,
       "maxWorkers": 9999,
@@ -116,12 +116,12 @@
     "passive": {
       "toolPriceIsMiracleCoin": false,
       "workerPriceIsMiracleCoin": false,
-      "speedProductivity": [1, 2, 4, 12],
-      "speedUpgradePrice": [1, 80, 160, 320],
+      "speedProductivity": [2, 6, 15],
+      "speedUpgradePrice": [100, 1000, 10000],
       "workerPrice": 90,
       "workerProductivity": 1,
-      "maxWorkers": 9999,
-      "produceTime": 60
+      "maxWorkers": 9999999,
+      "produceTime": 30
     }
   },
   {
@@ -149,11 +149,11 @@
     "passive": {
       "toolPriceIsMiracleCoin": false,
       "workerPriceIsMiracleCoin": false,
-      "speedProductivity": [1, 2, 4, 12],
-      "speedUpgradePrice": [1, 320, 640, 1280],
+      "speedProductivity": [2, 4, 12],
+      "speedUpgradePrice": [320, 640, 1280],
       "workerPrice": 100,
       "workerProductivity": 1,
-      "maxWorkers": 9999,
+      "maxWorkers": 999999,
       "produceTime": 60
     }
   },
@@ -171,17 +171,17 @@
         {
           "id": "transistor",
           "image": "assets/transistor.png",
-          "count": 3
+          "count": 12
         },
         {
           "id": "plastic",
           "image": "assets/plastic.png",
-          "count": 8
+          "count": 10
         }
       ],
       "craftImage": ""
     },
-    "sellPrice": 410,
+    "sellPrice": 900,
     "sellIsMiriclaCoint": false,
     "unlockPrice": 40000,
     "store": {
@@ -192,8 +192,8 @@
     "passive": {
       "toolPriceIsMiracleCoin": true,
       "workerPriceIsMiracleCoin": false,
-      "speedProductivity": [1, 2, 4, 12],
-      "speedUpgradePrice": [1, 5, 15, 45],
+      "speedProductivity": [2, 4, 12],
+      "speedUpgradePrice": [5, 15, 45],
       "workerPrice": 600,
       "workerProductivity": 1,
       "maxWorkers": 9999,
@@ -214,7 +214,7 @@
       ],
       "craftImage": ""
     },
-    "sellPrice": 80,
+    "sellPrice": 12,
     "sellIsMiriclaCoint": false,
     "unlockPrice": 4000,
     "store": {
@@ -225,12 +225,12 @@
     "passive": {
       "toolPriceIsMiracleCoin": true,
       "workerPriceIsMiracleCoin": false,
-      "speedProductivity": [1, 2, 4, 12],
-      "speedUpgradePrice": [1, 5, 15, 45],
+      "speedProductivity": [2, 4, 12],
+      "speedUpgradePrice": [5, 15, 45],
       "workerPrice": 200,
       "workerProductivity": 1,
-      "maxWorkers": 9999,
-      "produceTime": 120
+      "maxWorkers": 999999,
+      "produceTime": 60
     }
   },
   {
@@ -252,12 +252,12 @@
     "passive": {
       "toolPriceIsMiracleCoin": false,
       "workerPriceIsMiracleCoin": false,
-      "speedProductivity": [1, 2, 4, 12],
-      "speedUpgradePrice": [1, 3500, 10000, 30000],
+      "speedProductivity": [2, 6, 15],
+      "speedUpgradePrice": [3500, 35000, 350000],
       "workerPrice": 150,
       "workerProductivity": 1,
-      "maxWorkers": 9999,
-      "produceTime": 120
+      "maxWorkers": 999999,
+      "produceTime": 30
     }
   },
   {
@@ -290,12 +290,12 @@
     "passive": {
       "toolPriceIsMiracleCoin": false,
       "workerPriceIsMiracleCoin": false,
-      "speedProductivity": [1, 2, 4, 12],
-      "speedUpgradePrice": [1, 6000, 18000, 52000],
+      "speedProductivity": [2, 4, 12],
+      "speedUpgradePrice": [6000, 18000, 52000],
       "workerPrice": 250,
       "workerProductivity": 1,
-      "maxWorkers": 9999,
-      "produceTime": 120
+      "maxWorkers": 999999,
+      "produceTime": 60
     }
   },
   {
@@ -312,12 +312,12 @@
         {
           "id": "battery",
           "image": "assets/battery.png",
-          "count": 1
+          "count": 2
         },
         {
           "id": "microcircuit_1",
           "image": "assets/microcircuit_1.png",
-          "count": 2
+          "count": 8
         },
         {
           "id": "glass",
@@ -327,7 +327,7 @@
       ],
       "craftImage": ""
     },
-    "sellPrice": 820,
+    "sellPrice": 2200,
     "sellIsMiriclaCoint": false,
     "unlockPrice": 200000,
     "store": {
@@ -336,10 +336,10 @@
       "priceIsMiracleCoin": true
     },
     "passive": {
-      "toolPriceIsMiracleCoin": false,
+      "toolPriceIsMiracleCoin": true,
       "workerPriceIsMiracleCoin": false,
-      "speedProductivity": [1, 2, 4, 12],
-      "speedUpgradePrice": [1, 10, 30, 90],
+      "speedProductivity": [2, 4, 12],
+      "speedUpgradePrice": [10, 30, 90],
       "workerPrice": 1000,
       "workerProductivity": 1,
       "maxWorkers": 9999,
@@ -376,12 +376,12 @@
     "passive": {
       "toolPriceIsMiracleCoin": false,
       "workerPriceIsMiracleCoin": false,
-      "speedProductivity": [1, 2, 4, 12],
-      "speedUpgradePrice": [1, 10000, 30000, 60000],
+      "speedProductivity": [2, 4, 12],
+      "speedUpgradePrice": [10000, 30000, 60000],
       "workerPrice": 300,
       "workerProductivity": 1,
-      "maxWorkers": 9999,
-      "produceTime": 120
+      "maxWorkers": 999999,
+      "produceTime": 60
     }
   },
   {
@@ -409,12 +409,12 @@
     "passive": {
       "toolPriceIsMiracleCoin": false,
       "workerPriceIsMiracleCoin": false,
-      "speedProductivity": [1, 2, 4, 12],
-      "speedUpgradePrice": [1, 8000, 25000, 72000],
+      "speedProductivity": [2, 4, 12],
+      "speedUpgradePrice": [8000, 25000, 72000],
       "workerPrice": 350,
       "workerProductivity": 1,
-      "maxWorkers": 9999,
-      "produceTime": 120
+      "maxWorkers": 999999,
+      "produceTime": 60
     }
   },
   {
@@ -436,7 +436,7 @@
       ],
       "craftImage": ""
     },
-    "sellPrice": 100,
+    "sellPrice": 105,
     "sellIsMiriclaCoint": false,
     "unlockPrice": 50000,
     "store": {
@@ -447,12 +447,12 @@
     "passive": {
       "toolPriceIsMiracleCoin": true,
       "workerPriceIsMiracleCoin": false,
-      "speedProductivity": [1, 2, 4, 12],
-      "speedUpgradePrice": [1, 5, 15, 45],
+      "speedProductivity": [2, 4, 12],
+      "speedUpgradePrice": [5, 15, 45],
       "workerPrice": 400,
       "workerProductivity": 1,
-      "maxWorkers": 9999,
-      "produceTime": 120
+      "maxWorkers": 999999,
+      "produceTime": 60
     }
   },
   {
@@ -469,7 +469,7 @@
         {
           "id": "microcircuit_2",
           "image": "assets/microcircuit_2.png",
-          "count": 2
+          "count": 6
         },
         {
           "id": "battery",
@@ -495,11 +495,11 @@
     "passive": {
       "toolPriceIsMiracleCoin": true,
       "workerPriceIsMiracleCoin": true,
-      "speedProductivity": [1, 2, 4, 12],
-      "speedUpgradePrice": [1, 10, 50, 100],
+      "speedProductivity": [2, 4, 12],
+      "speedUpgradePrice": [10, 50, 100],
       "workerPrice": 4,
       "workerProductivity": 1,
-      "maxWorkers": 9999,
+      "maxWorkers": 999999,
       "produceTime": 120
     }
   },
@@ -533,8 +533,8 @@
     "passive": {
       "toolPriceIsMiracleCoin": false,
       "workerPriceIsMiracleCoin": false,
-      "speedProductivity": [1, 2, 4, 12],
-      "speedUpgradePrice": [1, 20000, 60000, 180000],
+      "speedProductivity": [2, 4, 12],
+      "speedUpgradePrice": [20000, 60000, 180000],
       "workerPrice": 8000,
       "workerProductivity": 1,
       "maxWorkers": 9999,
@@ -571,11 +571,11 @@
     "passive": {
       "toolPriceIsMiracleCoin": false,
       "workerPriceIsMiracleCoin": false,
-      "speedProductivity": [1, 2, 4, 12],
-      "speedUpgradePrice": [1, 25000, 100000, 200000],
+      "speedProductivity": [2, 4, 12],
+      "speedUpgradePrice": [25000, 100000, 200000],
       "workerPrice": 1000,
       "workerProductivity": 1,
-      "maxWorkers": 9999,
+      "maxWorkers": 999999,
       "produceTime": 120
     }
   },
@@ -614,11 +614,11 @@
     "passive": {
       "toolPriceIsMiracleCoin": false,
       "workerPriceIsMiracleCoin": false,
-      "speedProductivity": [1, 2, 4, 12],
-      "speedUpgradePrice": [1, 25000, 100000, 200000],
+      "speedProductivity": [2, 4, 12],
+      "speedUpgradePrice": [25000, 100000, 200000],
       "workerPrice": 900,
       "workerProductivity": 1,
-      "maxWorkers": 9999,
+      "maxWorkers": 999999,
       "produceTime": 120
     }
   },
@@ -667,8 +667,8 @@
     "passive": {
       "toolPriceIsMiracleCoin": false,
       "workerPriceIsMiracleCoin": false,
-      "speedProductivity": [1, 2, 4, 12],
-      "speedUpgradePrice": [1, 5000000, 15000000, 3000000],
+      "speedProductivity": [2, 4, 12],
+      "speedUpgradePrice": [5000000, 15000000, 3000000],
       "workerPrice": 100000,
       "workerProductivity": 1,
       "maxWorkers": 9999,

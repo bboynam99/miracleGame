@@ -99,7 +99,7 @@ export const MineUpgrade = ({
   const items = [
     {
       title: "Stoke",
-      level: mine.levelStore,
+      level: mine.levelStore + 1,
       isCount: false,
       price: mine.store.updateCapacityPrice[mine.levelStore] || ("N/A" as NA),
       icon: stokeIcon,
@@ -111,7 +111,7 @@ export const MineUpgrade = ({
     },
     {
       title: "Tools",
-      level: mine.passive.fabricGrade,
+      level: mine.passive.fabricGrade + 1,
       isCount: false,
       price:
         mine.passive.speedUpgradePrice[mine.passive.fabricGrade] ||

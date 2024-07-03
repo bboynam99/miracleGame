@@ -5,6 +5,8 @@ import { LoadIndicator } from "./LoadIndicator";
 import { Header } from "./Header";
 import { Toolbar } from "./Toolbar";
 import background from "@/assets/background.svg";
+import "./noise.css";
+import { Tutor } from "./Tutor";
 
 export const Layout = () => {
   const miniApp = useMiniApp();
@@ -34,6 +36,9 @@ export const Layout = () => {
         src={background}
         className="absolute w-full h-full pointer-events-none"
       />
+      <div className="noise" />
+      <div className="scanline"></div>
+      <Tutor />
     </div>
   );
 };
