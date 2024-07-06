@@ -116,7 +116,7 @@ export const userStore = create<UserStoreType>()(
           return;
         }
 
-        if (isImpossibleMine(mineId)) {
+        if (isImpossibleMine(mine, state.mines)) {
           return;
         }
 
@@ -312,21 +312,14 @@ export const isPosibleCraft = (
   });
 };
 
-export const isImpossibleMine = (mineId: MineType["id"]): boolean => {
-  const { mines } = userStore.getState();
-  const mine = mines[mineId];
-
-  if (mine === undefined) {
-    return true;
-  }
-
-  return (
-    mine.store.count >= mine.maxStore ||
-    mine.resource.craftResource.some(({ id, count }) => {
-      return (mines[id]?.store.count ?? 0) < count;
-    })
-  );
-};
+export const isImpossibleMine = (
+  mine: MineType,
+  mines: UserStoreType["mines"]
+): boolean =>
+  mine.store.count >= mine.maxStore ||
+  mine.resource.craftResource.some(({ id, count }) => {
+    return (mines[id]?.store.count ?? 0) < count;
+  });
 
 export const isImpossibleUpdateStore = (mineId: MineType["id"]) => {
   const { coin, mines } = userStore.getState();

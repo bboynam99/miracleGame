@@ -98,12 +98,39 @@ vi.mock("../config.json", () => ({
         produceTime: 120,
       },
     },
+    {
+      resource: {
+        id: "dimond",
+        name: "Dimand",
+        image: "dimond.png",
+        craftResource: [],
+      },
+      sellPrice: 1,
+      sellIsMiriclaCoint: true,
+      unlockPrice: 30,
+      store: {
+        updateCapacityPrice: [3, 6, 12, 24, 48, 96, 192, 384, 768, 1536],
+        updateCapacityCount: [10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+        priceIsMiracleCoin: false,
+      },
+      passive: {
+        toolPriceIsMiracleCoin: false,
+        workerPriceIsMiracleCoin: false,
+        speedProductivity: [1, 2, 3, 4],
+        speedUpgradePrice: [100, 200, 300, 400],
+        workerPrice: 100,
+        workerProductivity: 1,
+        maxWorkers: 10,
+        produceTime: 120,
+      },
+    },
   ],
 }));
 
 const firstMine = availableMines[0];
 const secondMine = availableMines[1];
 const thirdMine = availableMines[2];
+const miracleMine = availableMines[3];
 
 describe("userStore", () => {
   let store: UserStoreType;
@@ -148,6 +175,15 @@ describe("userStore", () => {
 
     expect(store.mines[firstMine.id]?.store.count).toBe(0);
     expect(store.coin).toBe(1000001);
+  });
+
+  test("should sell store resources with miracle coin", () => {
+    store.buyMine(miracleMine.id);
+    store.toMine(miracleMine.id);
+    store.sellStore(miracleMine.id);
+
+    expect(store.mines[miracleMine.id]?.store.count).toBe(0);
+    expect(store.mCoin).toBe(1);
   });
 
   test("should update store capacity", () => {
