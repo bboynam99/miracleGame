@@ -8,12 +8,14 @@ import {
 import { PropsWithChildren, useEffect, useRef } from "react";
 import useHttpsCallable from "@/store/useHttpsCallable";
 import { userStore } from "@/store/store";
+import { useTranslation } from "react-i18next";
 
 export const InitUser = ({ children }: PropsWithChildren) => {
   const initData = useInitData();
   const viewport = useViewport();
   const hasExecutedRef = useRef(false);
   const setInitStore = userStore((state) => state.setInitialMines);
+  const { i18n } = useTranslation();
 
   const [executeCallable, loading] = useHttpsCallable<
     InitUserRequest,
@@ -51,6 +53,12 @@ export const InitUser = ({ children }: PropsWithChildren) => {
     }
     execute();
   }, [initData, viewport, executeCallable, setInitStore]);
+
+  useEffect(() => {
+    if (initData && initData.user?.languageCode) {
+      i18n.changeLanguage(initData.user.languageCode);
+    }
+  }, [initData, i18n]);
 
   return loading ? null : children;
 };

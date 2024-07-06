@@ -5,6 +5,7 @@ import {
   TendersPage,
   CommunityPage,
   ProductionItem,
+  Start,
 } from "./LazyComponents";
 import mining from "@/assets/icons/mining.svg";
 import marker from "@/assets/icons/shop.svg";
@@ -45,4 +46,5 @@ export const routes: Route[] = [
     Component: ProductionItem,
     nav: false,
   },
+  { path: "start", Component: Start, nav: false },
 ];

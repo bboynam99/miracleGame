@@ -1,9 +1,11 @@
 import { userStore } from "@/store/store";
 import { Link } from "react-router-dom";
 import background from "@/assets/icons/background.svg";
+import { useTranslation } from "react-i18next";
 
 const Production = () => {
   const mines = userStore((state) => state.mines);
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col gap-0.5 pb-10">
@@ -22,7 +24,9 @@ const Production = () => {
                       <img className="w-20 h-20" src={mine.resource.image} />
                       <div className="flex flex-grow justify-between relative py-3 pl-4 pr-3">
                         <div className="flex flex-col text-2xs justify-between">
-                          <span className="text-xs text-grayM">Factory</span>
+                          <span className="text-xs text-grayM capitalize">
+                            {t("factory")}
+                          </span>
                           <span className="text-white">
                             {mine.resource.name}
                           </span>
@@ -46,7 +50,7 @@ const Production = () => {
                       </div>
                     </div>
                   </Link>
-                ),
+                )
             )
         : "No mines"}
     </div>

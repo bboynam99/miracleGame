@@ -12,6 +12,7 @@ import { useEffect, useMemo } from "react";
 import { Navigate, Route, Router, Routes } from "react-router-dom";
 import { routes } from "@/navigation/routes.tsx";
 import { Layout } from "./Layout";
+import { Start } from "@/navigation/LazyComponents";
 
 const Inner = () => {
   const miniApp = useMiniApp();
@@ -51,6 +52,7 @@ const Inner = () => {
           ))}
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
+        <Route path="/start" element={<Start />} />
       </Routes>
     </Router>
   );

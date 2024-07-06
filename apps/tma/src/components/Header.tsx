@@ -6,6 +6,7 @@ import hard from "@/assets/icons/hard.svg";
 import plus from "@/assets/icons/plus.svg";
 import { userStore } from "@/store/store";
 import { abbreviateNumber } from "@/pages/utils";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   const coin = userStore((state) => state.coin);
@@ -13,7 +14,9 @@ export const Header = () => {
 
   return (
     <div className="flex w-full py-3 px-6 gap-1 justify-between items-center bg-grayBGM">
-      <img src={burger} className="w-7 h-7" />
+      <Link to="/start">
+        <img src={burger} className="w-7 h-7" />
+      </Link>
 
       <div className="flex items-center">
         <img src={chip} className="w-5 h-5" />

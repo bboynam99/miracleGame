@@ -84,6 +84,7 @@ export const availableMines: MineType[] = config.map((mine) => ({
 export type UserStoreType = {
   coin: number;
   mCoin: number;
+  lang: string;
   mines: Partial<Record<ResourceId, MineType>>;
   buyMine: (mineId: MineType["id"]) => void;
   toMine: (mineId: MineType["id"]) => void;
@@ -93,12 +94,14 @@ export type UserStoreType = {
   hireWorker: (mineId: MineType["id"]) => void;
   setInitialMines: (mines: UserStoreType["mines"], coin: number) => void;
   tick: () => void;
+  setLang: (lang: string) => void;
 };
 
 export const userStore = create<UserStoreType>()(
   immer((set) => ({
     coin: 0,
     mCoin: 0,
+    lang: "ru",
     mines: {
       [availableMines[0]["id"] as ResourceId]: availableMines[0] as MineType,
     },
@@ -284,6 +287,11 @@ export const userStore = create<UserStoreType>()(
 
           mine.passive.progress = 0;
         });
+      });
+    },
+    setLang: (lang: string) => {
+      set((state) => {
+        state.lang = lang;
       });
     },
   }))
