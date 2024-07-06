@@ -10,7 +10,7 @@ import { MineHeader } from "./MineHeader";
 import { MineUpgrade } from "./MineUpgrade";
 import { MineInfo } from "./MineInfo";
 import softIcon from "@/assets/icons/soft.svg";
-import { isMineType } from "../utils";
+import { abbreviateNumber, isMineType } from "../utils";
 import { MineStore } from "./MineStore";
 import lines from "@/assets/lines.svg";
 
@@ -70,7 +70,7 @@ const BuyMine = ({ mine }: { mine: MineType }) => {
       disabled={disabled}
       onClick={buyThisMyne}
       label="Buy"
-      price={mine.unlockPrice.toString()}
+      price={abbreviateNumber(mine.unlockPrice)}
     />
   );
 };
@@ -87,7 +87,7 @@ const SellAll = ({ mine }: { mine: MineType }) => {
       disabled={isImpossibleSell(mine.id)}
       onClick={sellAll}
       label="Sell"
-      price={`+${mine.store.count * mine.sellPrice}`}
+      price={`+${abbreviateNumber(mine.store.count * mine.sellPrice)}`}
     />
   );
 };

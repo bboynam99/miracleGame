@@ -1,6 +1,7 @@
 import { userStore, availableMines } from "@/store/store";
 import softIcon from "@/assets/icons/soft.svg";
 import { Link } from "react-router-dom";
+import { abbreviateNumber } from "../utils";
 
 const Market = () => {
   const mines = userStore((state) => state.mines);
@@ -24,7 +25,9 @@ const Market = () => {
               <div className="flex flex-col justify-center items-end gap-3 px-2.5">
                 <span className="text-darkGrayM text-2xs px-4">Price:</span>
                 <div className="flex gap-2">
-                  <span className="text-white text-xs">{mine.unlockPrice}</span>
+                  <span className="text-white text-xs">
+                    {abbreviateNumber(mine.unlockPrice)}
+                  </span>
                   <img src={softIcon} />
                 </div>
               </div>

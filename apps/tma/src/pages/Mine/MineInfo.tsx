@@ -2,6 +2,7 @@ import { MineType, userStore } from "@/store/store";
 import { Link } from "react-router-dom";
 import { Button } from "@headlessui/react";
 import { ProgressBar } from "../Production/ProgressBar";
+import { abbreviateNumber } from "../utils";
 
 const ResourceItem = ({
   order,
@@ -109,17 +110,23 @@ export const MineInfo = ({ mine }: { mine: MineType }) => {
 
       <div className="flex flex-col text-secondaryM px-4 py-2 items-center bg-thirdlyT text-center min-w-24">
         <span className="text-2xs">Income:</span>
-        <span className="text-xs">{mine.passive.craftPerMinute} /min</span>
+        <span className="text-xs">
+          {abbreviateNumber(mine.passive.craftPerMinute)} /min
+        </span>
       </div>
 
       <div className="flex flex-col px-4 py-2 items-center bg-grayT">
         <span className="text-2xs text-grayM">Result:</span>
-        <span className="text-xs text-white">x{mine.passive.workerCount}</span>
+        <span className="text-xs text-white">
+          x{abbreviateNumber(mine.passive.workerCount)}
+        </span>
       </div>
 
       <div className="flex flex-col text-thirdlyM px-4 py-2 items-center bg-primaryT">
         <span className="text-2xs">Expense:</span>
-        <span className="text-xs">x{mine.usagePerMinute}</span>
+        <span className="text-xs">
+          x{abbreviateNumber(mine.usagePerMinute)}
+        </span>
       </div>
 
       <div className="grid grid-cols-5 col-span-3">

@@ -2,6 +2,7 @@ import { userStore } from "@/store/store";
 import { Link } from "react-router-dom";
 import background from "@/assets/icons/background.svg";
 import { useTranslation } from "react-i18next";
+import { abbreviateNumber } from "../utils";
 
 const Production = () => {
   const mines = userStore((state) => state.mines);
@@ -32,19 +33,21 @@ const Production = () => {
                           </span>
                           <div className="flex text-xs gap-2">
                             <span className="text-secondaryM">
-                              +{mine.passive.craftPerMinute}
+                              +{abbreviateNumber(mine.passive.craftPerMinute)}
                             </span>
                             <span className="text-thirdlyM">
-                              -{mine.usagePerMinute}
+                              -{abbreviateNumber(mine.usagePerMinute)}
                             </span>
                           </div>
                         </div>
 
                         <div className="flex flex-col items-end justify-between">
                           <span className="text-2xs text-grayM">Stock</span>
-                          <span className="text-white">{mine.store.count}</span>
+                          <span className="text-white">
+                            {abbreviateNumber(mine.store.count)}
+                          </span>
                           <span className="text-white text-xs">
-                            max./x{mine.maxStore}
+                            max./x{abbreviateNumber(mine.maxStore)}
                           </span>
                         </div>
                       </div>
