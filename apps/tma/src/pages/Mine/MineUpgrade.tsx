@@ -31,7 +31,7 @@ const UpgradeButton = ({
 
       <Button
         disabled={disabled}
-        className="clip-down absolute top-0 flex items-center w-full h-full disabled:bg-black/50"
+        className="clip-down absolute top-0 flex items-center w-full h-full disabled:bg-black/50 active:bg-black/50 disabled:text-gray-200 active:text-gray-200"
         onClick={onClick}
       >
         <div className="flex h-full w-2/6 items-center justify-center pl-1">

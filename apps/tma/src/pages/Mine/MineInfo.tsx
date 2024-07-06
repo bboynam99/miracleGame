@@ -1,4 +1,4 @@
-import { MineType, userStore } from "@/store/store";
+import { MineType, isPosibleCraft, userStore } from "@/store/store";
 import { Link } from "react-router-dom";
 import { Button } from "@headlessui/react";
 import { ProgressBar } from "../Production/ProgressBar";
@@ -78,6 +78,7 @@ const ResourceItem = ({
 // };
 
 export const MineInfo = ({ mine }: { mine: MineType }) => {
+  const { mines } = userStore((state) => state);
   const toMine = userStore((state) => state.toMine);
   const toMineResource = () => {
     toMine(mine.id);
@@ -94,7 +95,8 @@ export const MineInfo = ({ mine }: { mine: MineType }) => {
 
       <Button
         onClick={toMineResource}
-        className="col-span-1 row-span-2 relative min-w-32"
+        disabled={!isPosibleCraft(mine, mines)}
+        className="col-span-1 row-span-2 relative min-w-32 active:opacity-80 disabled:opacity-50"
       >
         <img
           src={mine.resource.image}

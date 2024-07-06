@@ -84,7 +84,6 @@ export const availableMines: MineType[] = config.map((mine) => ({
 export type UserStoreType = {
   coin: number;
   mCoin: number;
-  lang: string;
   mines: Partial<Record<ResourceId, MineType>>;
   buyMine: (mineId: MineType["id"]) => void;
   toMine: (mineId: MineType["id"]) => void;
@@ -94,14 +93,12 @@ export type UserStoreType = {
   hireWorker: (mineId: MineType["id"]) => void;
   setInitialMines: (mines: UserStoreType["mines"], coin: number) => void;
   tick: () => void;
-  setLang: (lang: string) => void;
 };
 
 export const userStore = create<UserStoreType>()(
   immer((set) => ({
     coin: 0,
     mCoin: 0,
-    lang: "ru",
     mines: {
       [availableMines[0]["id"] as ResourceId]: availableMines[0] as MineType,
     },
@@ -261,7 +258,7 @@ export const userStore = create<UserStoreType>()(
           }
 
           if (mine.passive.progress === 0) {
-            if (isPosibleCraft(mine.id, mines)) {
+            if (isPosibleCraft(mine, mines)) {
               mine.resource.craftResource.forEach(({ id, count }) => {
                 const resourceMine = state.mines[id];
                 if (resourceMine) {
@@ -289,24 +286,13 @@ export const userStore = create<UserStoreType>()(
         });
       });
     },
-    setLang: (lang: string) => {
-      set((state) => {
-        state.lang = lang;
-      });
-    },
   }))
 );
 
 export const isPosibleCraft = (
-  mineId: MineType["id"],
+  mine: MineType,
   mines: UserStoreType["mines"]
 ) => {
-  const mine = mines[mineId];
-
-  if (mine === undefined) {
-    return false;
-  }
-
   if (mine.maxStore === mine.store.count) {
     return false;
   }

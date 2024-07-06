@@ -106,7 +106,7 @@ const ActionButton = ({
   <Button
     disabled={disabled}
     onClick={onClick}
-    className="relative w-72 bg-grayM text-darkM disabled:bg-gray-600 disabled:text-gray-200 clip-down flex mt-4"
+    className="relative w-72 bg-grayM text-darkM disabled:bg-gray-600 disabled:text-gray-200 clip-down flex mt-4 active:bg-gray-800 active:text-gray-200"
   >
     <img src={lines} className="absolute w-full h-full z-10" />
 
