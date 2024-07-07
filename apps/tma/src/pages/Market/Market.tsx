@@ -1,10 +1,11 @@
-import { userStore, availableMines } from "@/store/store";
 import softIcon from "@/assets/icons/soft.svg";
 import { Link } from "react-router-dom";
 import { abbreviateNumber } from "../utils";
+import { useCommonStore } from "@/store/store";
 
 const Market = () => {
-  const mines = userStore((state) => state.mines);
+  const availableMines = useCommonStore((state) => state.availableMines);
+  const mines = useCommonStore((state) => state.mines);
 
   return (
     <div className="flex flex-col pb-8 gap-2">
@@ -13,8 +14,8 @@ const Market = () => {
         .map((mine) => {
           return (
             <Link
-              key={mine.id}
-              to={`/mine/${mine.id}`}
+              key={mine.resource.id}
+              to={`/mine/${mine.resource.id}`}
               className="grid grid-cols-market-items"
             >
               <img className="h-full w-full" src={mine.resource.image} />

@@ -1,15 +1,18 @@
-import { MineType, isPosibleCraft, userStore } from "@/store/store";
+// import { MineType, isPosibleCraft, userStore } from "@/store/store";
 import { Link } from "react-router-dom";
 import { Button } from "@headlessui/react";
 import { ProgressBar } from "../Production/ProgressBar";
 import { abbreviateNumber } from "../utils";
+import { useCommonStore } from "@/store/store";
+import { ConfigItem } from "@/store/types";
+import { isImpossibleMine } from "@/store/gameSlice";
 
 const ResourceItem = ({
   order,
   resource,
 }: {
   order?: string;
-  resource: MineType["resource"]["craftResource"][0];
+  resource: ConfigItem["resource"]["craftResource"][0];
 }) => {
   if (resource === undefined) {
     return <div className={`w-14 h-14 bg-gray-900 ${order}`} />;
@@ -77,35 +80,43 @@ const ResourceItem = ({
 //   );
 // };
 
-export const MineInfo = ({ mine }: { mine: MineType }) => {
-  const { mines } = userStore((state) => state);
-  const toMine = userStore((state) => state.toMine);
+export const MineInfo = ({ resource: resource }: { resource: ConfigItem }) => {
+  const mines = useCommonStore((state) => state.mines);
+  const toMine = useCommonStore((state) => state.toMine);
   const toMineResource = () => {
-    toMine(mine.id);
+    toMine(resource.resource.id);
   };
+  const mine = mines[resource.resource.id];
 
   return (
     <div className="grid grid-cols-item-info gap-1.5 px-8">
       <div className="flex flex-col px-4 py-2 items-center bg-grayT">
         <span className="text-2xs text-grayM">Cycle:</span>
         <span className="text-xs text-white">
-          {mine.passive.currentProduceTime} sec
+          {mine
+            ? mine.passive.currentProduceTime
+            : resource.passive.produceTime}{" "}
+          sec
         </span>
       </div>
 
       <Button
         onClick={toMineResource}
-        disabled={!isPosibleCraft(mine, mines)}
+        disabled={!mine || isImpossibleMine(mine, resource, mines)}
         className="col-span-1 row-span-2 relative min-w-32 active:opacity-80 disabled:opacity-50"
       >
         <img
-          src={mine.resource.image}
-          alt={`${mine.resource.name} resource`}
+          src={resource.resource.image}
+          alt={`${resource.resource.name} resource`}
           className="w-full auto top-0 object-cover absolute z-10 overflow-visible"
         ></img>
         <ProgressBar
           className="w-full min-h-32 absolute top-0 z-20"
-          progress={(mine.passive.progress / mine.passive.produceTime) * 100}
+          progress={
+            mine
+              ? (mine.passive.progress / resource.passive.produceTime) * 100
+              : 0
+          }
           isMax={false}
         />
       </Button>
@@ -113,21 +124,21 @@ export const MineInfo = ({ mine }: { mine: MineType }) => {
       <div className="flex flex-col text-secondaryM px-4 py-2 items-center bg-thirdlyT text-center min-w-24">
         <span className="text-2xs">Income:</span>
         <span className="text-xs">
-          {abbreviateNumber(mine.passive.craftPerMinute)} /min
+          {mine ? abbreviateNumber(mine.passive.craftPerMinute) : 0} /min
         </span>
       </div>
 
       <div className="flex flex-col px-4 py-2 items-center bg-grayT">
         <span className="text-2xs text-grayM">Result:</span>
         <span className="text-xs text-white">
-          x{abbreviateNumber(mine.passive.workerCount)}
+          x{mine ? abbreviateNumber(mine.passive.workerCount) : 0}
         </span>
       </div>
 
       <div className="flex flex-col text-thirdlyM px-4 py-2 items-center bg-primaryT">
         <span className="text-2xs">Expense:</span>
         <span className="text-xs">
-          x{abbreviateNumber(mine.usagePerMinute)}
+          x{mine ? abbreviateNumber(mine.usagePerMinute) : 0}
         </span>
       </div>
 
@@ -139,9 +150,9 @@ export const MineInfo = ({ mine }: { mine: MineType }) => {
         <Line />
         <SecondLine className="-scale-x-100" /> */}
         {[...Array(5)].map((_, index) => {
-          const resource = mine.resource.craftResource[index];
+          const r = resource.resource.craftResource[index];
 
-          return <ResourceItem key={index} resource={resource} />;
+          return <ResourceItem key={index} resource={r} />;
         })}
       </div>
     </div>

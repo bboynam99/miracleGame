@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
 import { getFunctions } from "firebase/functions";
-import { userStore } from "@/store/store";
 import useHttpsCallable from "@/store/useHttpsCallable";
 import { app } from "@/store/firebase";
+import { useCommonStore } from "@/store/store";
 
 export const SaveGame = () => {
-  const { mines, coin, mCoin } = userStore((state) => ({
+  const { mines, coin, mCoin } = useCommonStore((state) => ({
     mines: state.mines,
     coin: state.coin,
     mCoin: state.mCoin,
@@ -21,6 +21,7 @@ export const SaveGame = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
+      console.log("Saving game...", latestGameStatsRef.current);
       executeCallable({
         gameStats: JSON.stringify(latestGameStatsRef.current),
       });

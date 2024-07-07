@@ -7,14 +7,17 @@ import {
 } from "functions/src/index";
 import { PropsWithChildren, useEffect, useRef } from "react";
 import useHttpsCallable from "@/store/useHttpsCallable";
-import { userStore } from "@/store/store";
 import { useTranslation } from "react-i18next";
+import { useCommonStore } from "@/store/store";
+import config from "@/config.json";
 
 export const InitUser = ({ children }: PropsWithChildren) => {
   const initData = useInitData();
   const viewport = useViewport();
   const hasExecutedRef = useRef(false);
-  const setInitStore = userStore((state) => state.setInitialMines);
+  const init = useCommonStore((state) => state.init);
+
+  const setConfig = useCommonStore((state) => state.setConig);
   const { i18n } = useTranslation();
 
   const [executeCallable, loading] = useHttpsCallable<
@@ -36,23 +39,30 @@ export const InitUser = ({ children }: PropsWithChildren) => {
       if (!result) {
         return;
       }
+      setConfig(config);
       if (result.data.status === "created") {
+        // init(0, 0, );
+        // TODO Add first mine
+
         return;
       }
+
       try {
         const gameStats = JSON.parse(result.data.gameStats);
 
-        const { mines, coin } = gameStats;
+        const { mines, coin, mCoin } = gameStats;
+        console.log(mines, coin, mCoin);
 
         if (!mines || !coin) throw new Error("Invalid gameStats");
+        console.log(gameStats);
 
-        setInitStore(mines, coin);
+        init(coin, mCoin, mines);
       } catch (e) {
         console.log("error", e);
       }
     }
     execute();
-  }, [initData, viewport, executeCallable, setInitStore]);
+  }, [initData, viewport, executeCallable]);
 
   useEffect(() => {
     if (initData && initData.user?.languageCode) {

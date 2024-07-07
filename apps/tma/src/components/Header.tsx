@@ -4,13 +4,13 @@ import chip from "@/assets/icons/chip.svg";
 import soft from "@/assets/icons/soft.svg";
 import hard from "@/assets/icons/hard.svg";
 import plus from "@/assets/icons/plus.svg";
-import { userStore } from "@/store/store";
+import { useCommonStore } from "@/store/store";
 import { abbreviateNumber } from "@/pages/utils";
 import { Link } from "react-router-dom";
 
 export const Header = () => {
-  const coin = userStore((state) => state.coin);
-  const mCoin = userStore((state) => state.mCoin);
+  const coin = useCommonStore((state) => state.coin);
+  const mCoin = useCommonStore((state) => state.mCoin);
 
   return (
     <div className="flex w-full py-3 px-6 gap-1 justify-between items-center bg-grayBGM">

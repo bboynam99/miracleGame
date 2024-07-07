@@ -1,69 +1,67 @@
 import { useParams } from "react-router-dom";
-import {
-  MineType,
-  availableMines,
-  isImpossibleSell,
-  userStore,
-} from "@/store/store";
+import { useCommonStore } from "@/store/store";
+import { ConfigItem } from "@/store/types";
 import { Button } from "@headlessui/react";
 import { MineHeader } from "./MineHeader";
 import { MineUpgrade } from "./MineUpgrade";
 import { MineInfo } from "./MineInfo";
 import softIcon from "@/assets/icons/soft.svg";
-import { abbreviateNumber, isMineType } from "../utils";
-import { MineStore } from "./MineStore";
+import { abbreviateNumber } from "../utils";
 import lines from "@/assets/lines.svg";
+import { isImpossibleSell } from "@/store/gameSlice";
+import { MineStore } from "./MineStore";
 
 const ProductionItem = () => {
   const { mine } = useParams();
-  const mines = userStore((state) => state.mines);
-  const mineId = isMineType(mine);
+  const mines = useCommonStore((state) => state.mines);
+  const availableMines = useCommonStore((state) => state.availableMines);
+  // const mineId = isMineType(mine);
 
-  if (mineId === null) {
+  if (!mine) {
     return <p className="text-white">Not Found</p>;
   }
-  const mineInst = mines[mineId];
-  const mineInstance = availableMines.find((m) => m.id === mineId);
-  const isBought = mines[mineId] !== undefined;
+  // const mineInst = mines[mineId];
+  const mineInstance = availableMines.find((m) => m.resource.id === mine);
+  const isBought = mines[mine] !== undefined;
 
   if (mineInstance === undefined) {
     return <p className="text-white">Not Found</p>;
   }
 
-  return <BaseProduction mine={mineInst || mineInstance} isBought={isBought} />;
+  return <BaseProduction resource={mineInstance} isBought={isBought} />;
 };
 
 const BaseProduction = ({
-  mine,
+  resource,
   isBought,
 }: {
-  mine: MineType;
+  resource: ConfigItem;
   isBought: boolean;
 }) => {
   return (
     <div className="flex flex-col h-full w-full text-gray-200 items-center">
-      <MineHeader resourceName={mine.resource.name} />
+      <MineHeader resourceName={resource.resource.name} />
 
-      <MineUpgrade mine={mine} disabled={!isBought} />
+      <MineUpgrade resource={resource} disabled={!isBought} />
 
-      <MineStore mine={mine} />
+      <MineStore resourceId={resource.resource.id} />
 
-      <MineInfo mine={mine} />
+      <MineInfo resource={resource} />
 
-      {isBought ? <SellAll mine={mine} /> : <BuyMine mine={mine} />}
+      {isBought ? <SellAll resource={resource} /> : <BuyMine mine={resource} />}
     </div>
   );
 };
 
-const BuyMine = ({ mine }: { mine: MineType }) => {
-  const mines = userStore((state) => state.mines);
-  const coin = userStore((state) => state.coin);
-  const buyMine = userStore((state) => state.buyMine);
+const BuyMine = ({ mine }: { mine: ConfigItem }) => {
+  const mines = useCommonStore((state) => state.mines);
+  const coin = useCommonStore((state) => state.coin);
+  const buyMine = useCommonStore((state) => state.buyMine);
   const buyThisMyne = () => {
-    buyMine(mine.id);
+    buyMine(mine.resource.id);
   };
 
-  const disabled = !!mines[mine.id] || coin < mine.unlockPrice;
+  const disabled = !!mines[mine.resource.id] || coin < mine.unlockPrice;
 
   return (
     <ActionButton
@@ -75,19 +73,22 @@ const BuyMine = ({ mine }: { mine: MineType }) => {
   );
 };
 
-const SellAll = ({ mine }: { mine: MineType }) => {
-  const sellStore = userStore((state) => state.sellStore);
+const SellAll = ({ resource }: { resource: ConfigItem }) => {
+  const sellStore = useCommonStore((state) => state.sellStore);
+  const mine = useCommonStore((state) => state.mines[resource.resource.id]);
+
+  if (mine === undefined) return null;
 
   const sellAll = () => {
-    sellStore(mine.id);
+    sellStore(resource.resource.id);
   };
 
   return (
     <ActionButton
-      disabled={isImpossibleSell(mine.id)}
+      disabled={isImpossibleSell(mine)}
       onClick={sellAll}
       label="Sell"
-      price={`+${abbreviateNumber(mine.store.count * mine.sellPrice)}`}
+      price={`+${abbreviateNumber(mine.store.count * resource.sellPrice)}`}
     />
   );
 };

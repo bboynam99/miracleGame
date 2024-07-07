@@ -36,7 +36,6 @@ const Community = () => {
   };
 
   const onRestoreClick = () => {
-    console.log("here");
     cloudStorage.delete("tutor");
   };
 

@@ -4,17 +4,25 @@ import soft from "@/assets/icons/soft.svg";
 import stokeIcon from "@/assets/icons/store.svg";
 import toolsIcon from "@/assets/icons/tools.svg";
 import workersIcon from "@/assets/icons/workers.svg";
-import {
-  MineType,
-  userStore,
-  isImpossibleUpdateStore,
-  isImposibleUpdateProductivity,
-  isImposibleHire,
-  getHireWorkerCount,
-} from "@/store/store";
+// import {
+//   MineType,
+//   userStore,
+//   isImpossibleUpdateStore,
+//   isImposibleUpdateProductivity,
+//   isImposibleHire,
+//   getHireWorkerCount,
+// } from "@/store/store";
 import { abbreviateNumber } from "../utils";
 import button from "@/assets/button.svg";
 import info from "@/assets/info.svg";
+import {
+  isImposibleHire,
+  isImposibleUpdateProductivity,
+  isImpossibleUpdateStore,
+  useCommonStore,
+} from "@/store/store";
+import { ConfigItem } from "@/store/types";
+import { getHireWorkerCount } from "@/store/gameSlice";
 
 const UpgradeButton = ({
   price,
@@ -84,58 +92,69 @@ const TitleLevel = ({
 type NA = "N/A";
 
 export const MineUpgrade = ({
-  mine,
+  resource,
   disabled,
 }: {
-  mine: MineType;
+  resource: ConfigItem;
   disabled?: boolean;
 }) => {
-  const { store, fabric, worker } = userStore((state) => ({
+  const { store, fabric, worker, mines } = useCommonStore((state) => ({
     fabric: state.updateSpeedProductivity,
     store: state.updateStore,
     worker: state.hireWorker,
+    mines: state.mines,
   }));
+
+  const mine = mines[resource.resource.id];
+
+  //   if (mine === undefined) return null;
 
   const items = [
     {
       title: "Stoke",
-      level: mine.levelStore + 1,
+      level: mine ? mine.levelStore + 1 : 1,
       isCount: false,
-      price: mine.store.updateCapacityPrice[mine.levelStore] || ("N/A" as NA),
+      price:
+        resource.store.updateCapacityPrice[mine?.levelStore || 0] ||
+        ("N/A" as NA),
       icon: stokeIcon,
       iconAlt: "Stoke icon",
       onClick: () => {
-        store(mine.id);
+        store(resource.resource.id);
       },
-      disabled: disabled || isImpossibleUpdateStore(mine.id),
+      disabled: disabled || isImpossibleUpdateStore(resource.resource.id),
     },
     {
       title: "Tools",
-      level: mine.passive.fabricGrade + 1,
+      level: mine ? mine.passive.fabricGrade + 1 : 1,
       isCount: false,
       price:
-        mine.passive.speedUpgradePrice[mine.passive.fabricGrade] ||
-        ("N/A" as NA),
+        resource.passive.speedUpgradePrice[
+          mine ? mine.passive.fabricGrade : 0
+        ] || ("N/A" as NA),
       icon: toolsIcon,
       iconAlt: "Tools icon",
       onClick: () => {
-        fabric(mine.id);
+        fabric(resource.resource.id);
       },
-      disabled: disabled || isImposibleUpdateProductivity(mine.id),
+      disabled: disabled || isImposibleUpdateProductivity(resource.resource.id),
     },
     {
       title: "Workers",
-      level: mine.passive.workerCount,
+      level: mine ? mine.passive.workerCount : 0,
       isCount: true,
       price:
-        mine.passive.workerPrice *
-        getHireWorkerCount(mine.passive.workerCount, mine.passive.maxWorkers),
+        resource.passive.workerPrice *
+        getHireWorkerCount(
+          mine ? mine.passive.workerCount : 0,
+          resource.passive.maxWorkers
+        ),
       icon: workersIcon,
       iconAlt: "Workers icon",
       onClick: () => {
-        worker(mine.id);
+        worker(resource.resource.id);
       },
-      disabled: disabled || isImposibleHire(mine.id),
+      disabled: disabled || isImposibleHire(resource.resource.id),
     },
   ];
   return (

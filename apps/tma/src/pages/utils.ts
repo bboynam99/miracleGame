@@ -1,7 +1,7 @@
-import { ResourceId, resourceList } from "@/store/store";
+// import { ResourceId, resourceList } from "@/store/store";
 
-export const isMineType = (str?: string): ResourceId | null =>
-  resourceList.includes(str as ResourceId) ? (str as ResourceId) : null;
+// export const isMineType = (str?: string): ResourceId | null =>
+//   resourceList.includes(str as ResourceId) ? (str as ResourceId) : null;
 
 const units = ["", "K", "M", "B", "T", "P", "E", "Z", "Y"];
 

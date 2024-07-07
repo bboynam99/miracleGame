@@ -13,9 +13,7 @@ export const Tutor = () => {
 
   useEffect(() => {
     cloudStorage.get("tutor").then((value: string) => {
-      console.log("value", value);
       if (value !== "done") {
-        console.log("here");
         setCurrentIndex(0);
       }
     });

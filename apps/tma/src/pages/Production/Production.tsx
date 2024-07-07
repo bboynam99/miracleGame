@@ -1,11 +1,12 @@
-import { userStore } from "@/store/store";
 import { Link } from "react-router-dom";
 import background from "@/assets/icons/background.svg";
 import { useTranslation } from "react-i18next";
+import { useCommonStore } from "@/store/store";
 import { abbreviateNumber } from "../utils";
 
 const Production = () => {
-  const mines = userStore((state) => state.mines);
+  const mines = useCommonStore((state) => state.mines);
+  const availableMines = useCommonStore((state) => state.availableMines);
   const { t } = useTranslation();
 
   return (
@@ -13,48 +14,51 @@ const Production = () => {
       {mines && Object.keys(mines).length > 0
         ? Object.values(mines)
             .reverse()
-            .map(
-              (mine) =>
-                mine && (
-                  <Link to={`/mine/${mine.id}`} key={mine.id}>
-                    <div className="w-full flex relative">
-                      <img
-                        className="absolute w-full h-full z-0"
-                        src={background}
-                      />
-                      <img className="w-20 h-20" src={mine.resource.image} />
-                      <div className="flex flex-grow justify-between relative py-3 pl-4 pr-3">
-                        <div className="flex flex-col text-2xs justify-between">
-                          <span className="text-xs text-grayM capitalize">
-                            {t("factory")}
-                          </span>
-                          <span className="text-white">
-                            {mine.resource.name}
-                          </span>
-                          <div className="flex text-xs gap-2">
-                            <span className="text-secondaryM">
-                              +{abbreviateNumber(mine.passive.craftPerMinute)}
-                            </span>
-                            <span className="text-thirdlyM">
-                              -{abbreviateNumber(mine.usagePerMinute)}
-                            </span>
-                          </div>
-                        </div>
+            .map((mine) => {
+              const resource = availableMines.find(
+                (m) => m.resource.id === mine?.id
+              );
 
-                        <div className="flex flex-col items-end justify-between">
-                          <span className="text-2xs text-grayM">Stock</span>
-                          <span className="text-white">
-                            {abbreviateNumber(mine.store.count)}
+              return mine && resource ? (
+                <Link to={`/mine/${mine.id}`} key={mine.id}>
+                  <div className="w-full flex relative">
+                    <img
+                      className="absolute w-full h-full z-0"
+                      src={background}
+                    />
+                    <img className="w-20 h-20" src={resource.resource.image} />
+                    <div className="flex flex-grow justify-between relative py-3 pl-4 pr-3">
+                      <div className="flex flex-col text-2xs justify-between">
+                        <span className="text-xs text-grayM capitalize">
+                          {t("factory")}
+                        </span>
+                        <span className="text-white">
+                          {resource.resource.name}
+                        </span>
+                        <div className="flex text-xs gap-2">
+                          <span className="text-secondaryM">
+                            +{abbreviateNumber(mine.passive.craftPerMinute)}
                           </span>
-                          <span className="text-white text-xs">
-                            max./x{abbreviateNumber(mine.maxStore)}
+                          <span className="text-thirdlyM">
+                            -{abbreviateNumber(mine.usagePerMinute)}
                           </span>
                         </div>
                       </div>
+
+                      <div className="flex flex-col items-end justify-between">
+                        <span className="text-2xs text-grayM">Stock</span>
+                        <span className="text-white">
+                          {abbreviateNumber(mine.store.count)}
+                        </span>
+                        <span className="text-white text-xs">
+                          max./x{abbreviateNumber(mine.maxStore)}
+                        </span>
+                      </div>
                     </div>
-                  </Link>
-                )
-            )
+                  </div>
+                </Link>
+              ) : null;
+            })
         : "No mines"}
     </div>
   );
