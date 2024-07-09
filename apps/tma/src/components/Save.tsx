@@ -21,7 +21,6 @@ export const SaveGame = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      console.log("Saving game...", latestGameStatsRef.current);
       executeCallable({
         gameStats: JSON.stringify(latestGameStatsRef.current),
       });
