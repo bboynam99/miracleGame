@@ -1,22 +1,22 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, ChangeEvent } from "react";
 import { getFunctions } from "firebase/functions";
 import { app } from "@/store/firebase";
 import { Button } from "@headlessui/react";
 import useHttpsCallable from "@/store/useHttpsCallable";
 import { useMiniApp, useCloudStorage } from "@tma.js/sdk-react";
-import {} from "@tma.js/sdk-react";
 
 const Community = () => {
   const timeoutIdRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [countClick, setCountClick] = useState(0);
-  const [executeCallable] = useHttpsCallable(getFunctions(app), "save");
+  const [saveGame] = useHttpsCallable(getFunctions(app), "save");
+  const [uploadConfig] = useHttpsCallable(getFunctions(app), "uploadConfig");
   const miniApp = useMiniApp();
   const cloudStorage = useCloudStorage();
 
   const onClick = () => {
     if (countClick >= 5) {
       setCountClick(0);
-      executeCallable({
+      saveGame({
         gameStats: JSON.stringify({ coin: 0, mines: {} }),
       }).then(() => {
         miniApp.close();
@@ -39,6 +39,16 @@ const Community = () => {
     cloudStorage.delete("tutor");
   };
 
+  const handleFileUpload = (event: ChangeEvent<HTMLInputElement>): void => {
+    if (!event.target.files || !event.target.files[0]) return;
+
+    const filePromises = event.target.files[0].text();
+
+    filePromises.then((text) => {
+      uploadConfig({ config: text });
+    });
+  };
+
   useEffect(() => {
     return () => {
       if (timeoutIdRef.current) {
@@ -55,6 +65,8 @@ const Community = () => {
       <Button onClick={onRestoreClick}>
         <h1 className="text-3xl text-white p-3 bg-primaryM">Restore tutor</h1>
       </Button>
+      <h1 className="text-3xl text-white p-3 bg-primaryM">Upload config</h1>
+      <input onChange={handleFileUpload} type="file"></input>
     </div>
   );
 };

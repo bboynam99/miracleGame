@@ -1,4 +1,4 @@
-import {validate, parse} from "@tma.js/init-data-node";
+import { validate, parse } from "@tma.js/init-data-node";
 import * as logger from "firebase-functions/logger";
 import * as dotenv from "dotenv";
 dotenv.config();
@@ -15,7 +15,7 @@ export const auth = (authorization: string | undefined): string | null => {
   }
 
   try {
-    validate(authData, telegramToken, {expiresIn: 3600});
+    validate(authData, telegramToken, { expiresIn: 3600 });
   } catch (error) {
     logger.error(error);
     return null;

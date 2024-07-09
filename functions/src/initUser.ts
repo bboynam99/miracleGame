@@ -1,9 +1,10 @@
-import {db} from "./db";
-import {User} from "./types";
+import { db } from "./db";
+import { User } from "./types";
 
 export type ResultInit = {
-  status: "created" | "updated";
+  status: "created" | "updated" | "error";
   gameStats: string;
+  config: string | null;
 };
 /**
  * Initialize a user, updating their login rewards and creating a new user if
@@ -17,12 +18,24 @@ export type ResultInit = {
  */
 export async function initUser(telegramID: string): Promise<ResultInit> {
   const userRef = db.collection("users").doc(telegramID);
+  const configRef = db.collection("config").doc("electronic");
   const userDoc = await userRef.get();
+  const configDoc = await configRef.get();
+
+  if (!configDoc.exists) {
+    return {
+      status: "error",
+      gameStats: "",
+      config: null,
+    };
+  }
+  const electronicData = configDoc.data();
+  const config = electronicData?.config;
 
   if (userDoc.exists) {
     const userData = userDoc.data() as User;
 
-    return {status: "updated", gameStats: userData.gameStats};
+    return { status: "updated", gameStats: userData.gameStats, config };
   } else {
     const newUser: User = {
       telegramId: telegramID,
@@ -35,6 +48,7 @@ export async function initUser(telegramID: string): Promise<ResultInit> {
     return {
       status: "created",
       gameStats: "",
+      config,
     };
   }
 }
